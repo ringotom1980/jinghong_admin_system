@@ -27,10 +27,12 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           port: 21
 
-          # 重要：請把 FTP_TARGET_DIR 設成「最終要落地的資料夾」
-          # 例：/domains/你的網域/public_html/JINGHONG_ADMIN_SYSTEM/
-          server-dir: ${{ secrets.FTP_TARGET_DIR }}
+          # ✅ 你的 FTP 根目錄已經是 public_html
+          # ✅ 要部署到 public_html/jinghong_admin_system/
+          # ⚠️ 一定要用「相對路徑」，不要寫 /public_html 或 /home/...
+          server-dir: jinghong_admin_system/
 
+          # ✅ 整包部署（含 Public/ config/ tools/ ...）
           local-dir: ./
 
           exclude: |
