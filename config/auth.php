@@ -1,6 +1,6 @@
 <?php
 // 📂 config/auth.php
-// 單一管理者 + 一般使用者 的登入/驗證 + CSRF + 限速 + 記住我
+// 單一管理者 + 一般使用者 的登入/驗證 + CSRF + 限速 + 記住我()
 declare(strict_types=1);
 
 if (session_status() === PHP_SESSION_NONE) session_start();
