@@ -1,0 +1,194 @@
+/* ===== car_edit.css ===== */
+
+/* 表格容器：固定高度 + 可捲動 */
+.table-container {
+  max-height: 500px;      /* 依實際需求調整 */
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+}
+
+/* 表格表頭固定 */
+.table-container thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f8f9fa;   /* 淺灰背景 */
+  color: #212529;
+}
+
+/* 表格通用樣式 */
+.table {
+  margin-bottom: 0;
+  font-size: 0.95rem;
+}
+
+.table td,
+.table th {
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* 動作按鈕區域 */
+.action-buttons .btn {
+  margin: 0 3px;
+  min-width: 70px;
+}
+
+/* 新增 / 編輯 modal 表單 */
+.modal .form-label {
+  font-weight: 500;
+}
+.modal input,
+.modal select {
+  font-size: 0.95rem;
+}
+
+/* 車輛圖片預覽 */
+.vehicle-img-preview {
+  width: 120px;
+  height: 90px;
+  object-fit: cover;       /* 保持比例裁切 */
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  margin: 4px;
+}
+
+/* 日期選擇器與篩選器 */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.filter-bar .form-control {
+  max-width: 220px;
+}
+
+/* 狀態標籤 */
+.status-badge {
+  padding: 0.35em 0.65em;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.status-active {
+  background-color: #198754; /* Bootstrap 綠 */
+  color: #fff;
+}
+.status-inactive {
+  background-color: #dc3545; /* Bootstrap 紅 */
+  color: #fff;
+}
+
+/* 小卡片：用在車輛小資訊預覽 */
+.card-vehicle {
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  transition: box-shadow 0.2s ease;
+}
+.card-vehicle:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+}
+
+/* 響應式：小螢幕表格橫向捲動 */
+@media (max-width: 768px) {
+  .table-container {
+    overflow-x: auto;
+  }
+}
+
+/* 表頭：允許個別欄位斷行為兩行 */
+#vehicleTable thead th.th-2line {
+  white-space: normal !important; /* 蓋過外層 text-nowrap */
+  line-height: 1.2;
+}
+#vehicleTable thead th.th-2line > span {
+  display: block;                 /* 一個 span 一行 */
+}
+
+/* 讓特定欄位可換行 */
+#vehicleTable td.wrap-owner,
+#vehicleTable th.wrap-owner {
+  white-space: normal !important;
+}
+
+/* 強制這格的內容在指定寬度內折行 */
+#vehicleTable td.wrap-owner .cell-wrap {
+  display: inline-block;
+  max-width: 12em;          /* 調整你想要的欄寬，例如 10em、160px */
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;   /* 沒有空白也能斷行 */
+}
+
+/* 車輛基本資料表：表頭固定在頂端 */
+#vehicleTable thead {
+  position: sticky;
+  top: var(--jh-header-h, 0px); /* 與 header 對齊 */
+  background: #fff;
+  z-index: 1000;
+  box-shadow: 0 1px 0 rgba(0,0,0,.06);
+}
+
+/* --- 境宏小幫手 QR Modal 美化 --- */
+
+/* 卡片：柔和、緊湊 */
+.helper-qr-card {
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.12);
+}
+
+/* QR 外框：有留白 + 細邊 + 淡陰影 */
+.helper-qr-frame {
+  display: inline-block;
+  padding: 12px;                 /* 讓 QR 周圍有呼吸空間 */
+  background: #fff;
+  border: 1px solid #e6e6e8;     /* 細邊 */
+  border-radius: 12px;           /* 圓角 */
+  box-shadow: 0 4px 14px rgba(0,0,0,.06);
+}
+
+/* 圖片：固定比例、圓角同步、在小螢幕自適應 */
+.helper-qr-img {
+  display: block;
+  width: 240px;                  /* 桌機大小 */
+  max-width: 70vw;               /* 手機縮放 */
+  height: auto;
+  border-radius: 8px;
+  image-rendering: crisp-edges;  /* 提升 QR 清晰度（支援的瀏覽器會生效） */
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* 標題與說明字級 */
+#helperQrModal .modal-title { font-size: 1rem; }
+.helper-qr-caption { font-size: .92rem; }
+
+/* 小螢幕微調：縮小邊距，讓畫面更緊湊 */
+@media (max-width: 576px) {
+  .helper-qr-frame { padding: 10px; }
+  .helper-qr-img { width: 200px; max-width: 78vw; }
+}
+
+/* Modal 標題小圓形 Logo（立體感版） */
+.helper-logo-circle {
+  height: 42px;                 /* 放大一點 */
+  width: 42px;
+  object-fit: contain;          /* 保持 Logo 完整，不裁切 */
+  border-radius: 50%;           /* 圓形 */
+  padding: 6px;                 /* 確保 Logo 不貼邊，像放在圓框內 */
+  
+  /* 背景漸層 + 邊框 + 陰影，營造凸透感 */
+  background: radial-gradient(circle at 30% 30%, #ffffff, #f1f1f1);
+  border: 2px solid #dcdcdc;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.8),  /* 內亮 */
+              inset 0 -2px 4px rgba(0,0,0,0.1),       /* 內暗 */
+              0 2px 6px rgba(0,0,0,0.15);             /* 外陰影 */
+
+  margin-right: 10px;           /* 和標題留點距離 */
+}
+
+

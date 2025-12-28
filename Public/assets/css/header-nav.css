@@ -1,0 +1,152 @@
+:root{
+  --jh-ease: cubic-bezier(.22,.7,.26,1);
+  --jh-fast: .16s;         /* 小互動 */
+  --jh-slow: .26s;         /* 大面板滑出 */
+}
+
+/* 第一層：公司抬頭 */
+.jh-header{
+  position: sticky; top: 0; z-index: 1040;
+  background: linear-gradient(90deg,#263a72 0%,#0b1426 100%);
+  color:#fff;
+  box-shadow: inset 0 -0.5px 0 rgba(255,255,255,.06),0 6px 16px rgba(0,0,0,.25);
+}
+.jh-top{ padding: 12px 20px; }
+.jh-brand-text{ font-size: 20px; font-weight: 800; letter-spacing:.3px; color:#fff; }
+.jh-user{ font-size: 15px; }
+.jh-user a{ color:#fff; text-decoration:none; }
+.jh-user a:hover{ color:#ffe066; }
+
+/* 第二層：次導覽（收起預設不佔高、且不顯示內容） */
+.jh-nav2{
+  overflow: hidden;                   /* 收起時裁切，避免文字外露 */
+  height: 0;
+  background: rgba(12,21,40,.18);     /* 輕微提高不透明度，減少補間閃光 */
+  transition: height var(--jh-slow) var(--jh-ease);
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+
+/* 次導覽內文做淡入/位移，避免任何外露 */
+.jh-nav2-list{
+  display:flex; justify-content:center; gap:36px;
+  list-style:none; margin:0; padding:10px 12px 8px;
+
+  opacity: 0;                         /* 收起時不可見 */
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity var(--jh-slow) var(--jh-ease),
+              transform var(--jh-slow) var(--jh-ease);
+}
+
+/* 展開狀態由 header 加 class 控制 */
+.jh-header.nav2-open .jh-nav2{
+  overflow: visible;                  /* 展開時讓第三層下拉不被裁切 */
+  background: rgba(10,18,35,.22);     /* 展開時底更實，避免背景透光 */
+}
+.jh-header.nav2-open .jh-nav2-list{
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.jh-nav2-item{ position: relative; }  /* 第三層定位基準 */
+.jh-nav2-btn{
+  appearance:none; border:0; background:transparent; color:#e7eeff;
+  font-size: 17px; font-weight: 800; letter-spacing:.4px;
+  padding:10px 14px; border-radius:12px; cursor:pointer;
+  transition: transform var(--jh-fast) var(--jh-ease), background var(--jh-fast) ease, color var(--jh-fast) ease;
+}
+.jh-nav2-btn:hover,.jh-nav2-btn:focus{ background: rgba(255,255,255,.10); color:#fff; transform: translateY(-1px); outline: none; }
+.jh-nav2-item.active .jh-nav2-btn{ background: rgba(120,165,255,.22); color:#fff; }
+
+/* 第三層：就近下拉卡片（加入合成層與頂邊蓋板，消除白邊閃一下） */
+.jh-pop{
+  position: absolute;
+  top: 100%;                /* 由 100% 緊貼，再用 margin 推開避免縫 */
+  margin-top: 6px;
+  left: 0;
+  min-width: 100px;
+  max-width: 90vw;
+  width: max-content;
+
+  background: rgba(10,18,35,.96);
+  backdrop-filter: blur(8px);
+  background-clip: padding-box;       /* 防止邊框與背景交界透出 */
+  border-radius: 12px;
+
+  /* 可選：若你仍想要邊框，把下面的 inset 陰影改回 border */
+  border: none;
+  box-shadow: 0 18px 32px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.06) inset;
+
+  padding: 8px;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity .22s var(--jh-ease), transform .22s var(--jh-ease);
+  z-index: 1050;
+
+  will-change: transform, opacity;    /* 放到 GPU 合成層 */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* 小三角：移除 drop-shadow，避免亮邊；定位改配合 margin */
+.jh-pop::before{
+  content:""; position:absolute; left:16px;
+  top:-6px;
+  border:6px solid transparent;
+  border-bottom-color: rgba(10,18,35,.96);
+}
+
+/* 頂邊 1px 蓋板：就算尚有子像素縫，也被同色蓋住 */
+.jh-pop::after{
+  content:""; position:absolute; left:0; right:0; top:-1px; height:1px;
+  background: rgba(10,18,35,.96);
+  pointer-events:none;
+}
+
+.jh-pop a{
+  display:block; color:#eaf1ff; text-decoration:none;
+  font-size:16px; font-weight:600;
+  padding:9px 10px; border-radius:10px;
+  transition: background .14s ease, transform .12s ease;
+  text-align:center;
+}
+.jh-pop a:hover,.jh-pop a:focus{ background: rgba(255,255,255,.10); transform: translateX(2px); outline:none; }
+
+/* 開啟狀態 */
+.jh-nav2-item.open > .jh-pop{
+  opacity:1; transform: translateY(0); pointer-events:auto;
+}
+
+/* 視窗右緣避免溢出：右對齊模式 */
+.jh-nav2-item.align-right > .jh-pop{ left:auto; right:0; }
+.jh-nav2-item.align-right > .jh-pop::before{ left:auto; right:16px; }
+
+/* RWD */
+@media (max-width: 768px){
+  .jh-nav2-list{ gap:10px; flex-wrap: wrap; }
+  .jh-nav2-btn{ font-size:16px; padding:9px 12px; }
+  .jh-pop{ min-width:220px; }
+}
+
+/* 無動畫偏好 */
+@media (prefers-reduced-motion: reduce){
+  .jh-nav2, .jh-nav2-btn, .jh-pop, .jh-pop a { transition: none !important; }
+}
+
+/* 收合中：先讓字淡出，避免背景先收、字還停留 */
+.jh-header.nav2-closing .jh-nav2-list{
+  opacity: 0 !important;
+  transform: translateY(-8px) !important;
+  pointer-events: none !important;
+  transition-duration: var(--jh-fast); /* 關門更快 */
+}
+
+/* 收合中：第三層（如果還在）也立刻淡出 */
+.jh-header.nav2-closing .jh-pop{
+  opacity: 0 !important;
+  transform: translateY(-6px) !important;
+  pointer-events: none !important;
+  transition-duration: var(--jh-fast);
+}

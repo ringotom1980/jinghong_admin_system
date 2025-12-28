@@ -1,0 +1,67 @@
+/* 手機：縮小右表字體 */
+@media (max-width: 576px) {
+  .table-font-size { font-size: 58%; }
+}
+
+/* 右表：內容過長省略（title 顯示完整） */
+#repairTable .cell-ellipsis {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 左右兩表的表頭 sticky（頂端偏移由 --jh-header-h 控制） */
+#statisticsTable thead,
+#repairTable thead {
+  position: sticky;
+  top: var(--jh-header-h, 0px);
+  background: #fff;
+  z-index: 1000;
+  box-shadow: 0 1px 0 rgba(0,0,0,.06);
+}
+
+/* 左表：確保右邊框存在 */
+#statisticsTable,
+#statisticsTable th:last-child,
+#statisticsTable td:last-child {
+  border-right: 1px solid var(--bs-primary) !important;
+}
+
+/* 左表：整列可點選 → 手指游標 */
+#statisticsTable tbody tr.clickable-row,
+#statisticsTable tbody tr.clickable-row td {
+  cursor: pointer;
+}
+
+/* 右表：無邊框，保留條紋底色 */
+#repairTable,
+#repairTable th,
+#repairTable td {
+  border: 0 !important;
+}
+#repairTable > :not(caption) > * > * {
+  border-bottom-width: 0 !important;
+}
+#repairTable {
+  --bs-table-striped-bg: rgba(0, 0, 0, .05);
+}
+
+/* 回頂端按鈕 */
+#btnBackToTop {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1080;
+  display: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+  opacity: 0.6;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+#btnBackToTop:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}

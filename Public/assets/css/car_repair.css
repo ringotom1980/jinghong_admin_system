@@ -1,0 +1,52 @@
+/* 表格排版 */
+.table thead th, .table tbody td {
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.table tbody td.text-start {
+  white-space: normal;      /* 維修內容/備註可換行 */
+}
+
+.table thead th:nth-child(9),  /* 維修項目 */
+.table thead th:nth-child(12), /* 備註 */
+.table tbody td:nth-child(9),
+.table tbody td:nth-child(12) {
+  white-space: normal;
+  word-break: break-word;
+  max-width: 420px;          /* 避免內容撐爆 */
+}
+
+/* 金額欄置右 */
+.table thead th:nth-child(10),
+.table thead th:nth-child(11),
+.table tbody td:nth-child(10),
+.table tbody td:nth-child(11) { text-align: right; }
+
+/* 分頁區 */
+.pagination .page-link { min-width: 2.5rem; text-align: center; }
+
+/* Modal 內項目列間距 */
+.item-row + .item-row { margin-top: .25rem; }
+
+/* 小螢幕時欄寬微調 */
+@media (max-width: 1200px) {
+  .table thead th:nth-child(2),
+  .table tbody td:nth-child(2),
+  .table thead th:nth-child(3),
+  .table tbody td:nth-child(3) {
+    white-space: nowrap;
+  }
+  .table thead th:nth-child(9),
+  .table tbody td:nth-child(9),
+  .table thead th:nth-child(12),
+  .table tbody td:nth-child(12) {
+    max-width: 320px;
+  }
+}
+
+/* Public/assets/css/equ_statistics.css */
+
+/* 手機：適度縮小右表字體 */
+@media (max-width: 576px) {
+  .table-font-size { font-size: 60%; }
+}

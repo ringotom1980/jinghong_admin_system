@@ -1,0 +1,336 @@
+/*-----承辦人員表格樣式-----*/
+/* 表格圓角設計 */
+table {
+    border-radius: 20px; /* 整個表格圓角 */
+    overflow: hidden; /* 防止圓角部分被內容覆蓋 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 加入陰影效果 */
+}
+
+/* 表頭圓角設置 */
+thead th:first-child {
+    border-top-left-radius: 10px; /* 左上角圓角 */
+}
+
+thead th:last-child {
+    border-top-right-radius: 10px; /* 右上角圓角 */
+}
+
+/* 表格底部圓角 */
+tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 10px; /* 左下角圓角 */
+}
+
+tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 10px; /* 右下角圓角 */
+}
+
+/*-----整個頁面設定不要滾動條-----*/
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto; /* 允許滾動 */
+    scrollbar-width: none; /* 隱藏 Firefox 滾動條 */
+}
+
+body::-webkit-scrollbar {
+    display: none; /* 隱藏 Chrome 和 Safari 的滾動條 */
+}
+
+/*----- 對帳資料拖曳變換順序樣式 -----*/
+
+/* 拖曳容器樣式 */
+#sortableContainer {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-height: 400px;
+    overflow-y: auto; /* 滾動條處理 */
+}
+
+/* 拖曳項目基本樣式 */
+.sortable-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    touch-action: auto; /* 確保支持觸控拖曳 */
+    -webkit-tap-highlight-color: transparent; /* 移除點擊高亮 */
+    cursor: grab; /* 拖曳時顯示抓取圖示 */
+    transition: background-color 0.2s ease, transform 0.2s ease; /* 平滑過渡效果 */
+}
+
+/* 拖曳中的效果 */
+.sortable-item:active {
+    cursor: grabbing; /* 拖曳進行時的游標 */
+}
+
+.sortable-ghost {
+    opacity: 0.5;
+    background-color: #e9ecef; /* 拖曳時的背景 */
+    transform: scale(1.05); /* 拖曳時的放大效果 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 陰影效果 */
+}
+
+/* 排序中選中項目高亮樣式 */
+.sortable-chosen {
+    border: 2px dashed #007bff; /* 藍色虛線邊框 */
+}
+
+/* 拖曳箭頭樣式 */
+.drag-handle {
+    font-size: 1.2rem;
+    color: #6c757d; /* 灰色箭頭 */
+    cursor: grab; /* 拖曳時的游標 */
+    margin-right: 15px; /* 與輸入框的距離增大 */
+}
+
+.drag-handle:hover {
+    color: #007bff; /* 滑鼠懸停時變為藍色 */
+}
+
+.drag-handle:active {
+    cursor: grabbing; /* 拖曳時的游標樣式 */
+}
+
+/* 輸入框樣式 */
+.material-name {
+    flex: 1; /* 輸入框撐滿剩餘空間 */
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px; /* 內邊距 */
+    margin-left: 10px; /* 向右縮進 */
+}
+
+/* 提示文字樣式 */
+.swal2-html-container p.text-muted {
+    font-size: 0.9rem;
+    font-style: italic; /* 斜體字 */
+    color: #6c757d; /* 灰色文字 */
+    margin-bottom: 10px; /* 與容器的距離 */
+    text-align: center;
+}
+
+@media (max-width: 576px) {
+    .btn {
+        width: 100%; /* 在小螢幕下按鈕占滿整行 */
+    }
+    .mx-2 {
+        margin-left: 0 !important; /* 移除水平間距 */
+        margin-right: 0 !important;
+    }
+}
+
+/* -----覆蓋 SweetAlert2 彈窗寬度設定----- */
+.shift-popup {
+    width: 60% !important; /* 強制設定寬度為螢幕的 90% */
+    max-width: 60% !important; /* 確保最大寬度為螢幕的 90% */
+    font-size: 14px; /* 調整文字大小 */
+}
+
+/* 表格樣式 */
+.shift-popup table {
+    width: 100%; /* 確保表格填滿彈窗 */
+    table-layout: auto; /* 動態調整列寬 */
+    border-collapse: collapse; /* 合併表格邊框 */
+}
+
+.shift-popup th,
+.shift-popup td {
+    border: 1px solid #ccc; /* 表格邊框 */
+    padding: 8px; /* 內邊距 */
+    text-align: left; /* 左對齊 */
+    font-size: 14px; /* 表格內文字大小 */
+    white-space: nowrap; /* 防止內容換行 */
+    overflow: hidden; /* 隱藏溢出文字 */
+    text-overflow: ellipsis; /* 超出部分顯示省略號 */
+}
+
+/* 當螢幕尺寸較小時的響應式設定 */
+@media (max-width: 768px) {
+    .shift-popup {
+        width: 100% !important; /* 小螢幕時佔滿螢幕 */
+        max-width: 100% !important;
+    }
+
+    .shift-popup table {
+        font-size: 12px; /* 調整表格字體大小 */
+    }
+}
+
+/* ------- 卡片樣式 ------- */
+.card {
+    border-radius: 15px; /* 圓角 */
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 陰影 */
+}
+
+/* ------- 上傳按鈕樣式 ------- */
+.btn-gradient-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3); /* 漸變背景 */
+    border: none;
+    color: white;
+    border-radius: 10px; /* 圓角 */
+    padding: 8px 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-gradient-primary:hover {
+    background: linear-gradient(135deg, #0056b3, #004494); /* 懸停顏色 */
+    transform: scale(1.05); /* 放大效果 */
+}
+
+/* ------- 近3個月資料標題樣式 ------- */
+.text-muted {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* ------- 日期小卡片容器 ------- */
+#dateCardContainer {
+    display: flex;
+    flex-wrap: wrap; /* 卡片響應式換行 */
+    gap: 15px; /* 卡片間距 */
+    justify-content: center; /* 卡片居中 */
+    margin-top: 10px;
+}
+
+/* ------- 日期小卡片樣式 ------- */
+.date-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(33.333% - 10px); /* 三等分卡片寬度，包含間距 */
+    max-width: 200px; /* 限制最大寬度 */
+    height: 60px; /* 固定高度 */
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* 圓角 */
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 卡片陰影 */
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+/* ------- 日期小卡片懸停效果 ------- */
+.date-card:hover {
+    background-color: #e9f5ff; /* 懸停背景色 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 加強陰影 */
+    transform: scale(1.05); /* 輕微放大 */
+}
+
+/* ------- 日期小卡片選中效果 ------- */
+.date-card.selected {
+    border: 2px solid #007bff; /* 藍色框線 */
+    background-color: #e9f5ff; /* 淺藍背景 */
+    transition: all 0.3s ease; /* 平滑過渡效果 */
+}
+
+
+/* ------- 響應式設定 ------- */
+@media (max-width: 992px) {
+    .date-card {
+        width: calc(50% - 10px); /* 每行兩張卡片 */
+    }
+}
+
+@media (max-width: 576px) {
+    .date-card {
+        width: calc(50% - 10px); /* 每行兩張卡片 */
+    }
+
+    .btn-gradient-primary {
+        width: 100%; /* 小螢幕按鈕全寬 */
+    }
+}
+
+/*彈窗內的 voucher 列表*/
+.voucher-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+.voucher-list {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+/*-----動態返回指定日期"對帳資料"、"領料"、退料"、"用餘"的狀況-----*/
+/* 狀態容器 */
+#statusContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* 控制項目之間的間距 */
+    justify-content: flex-start; /* 對齊方式 */
+}
+
+/* 狀態項目 */
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* 打勾與打叉圖片 */
+.status-icon {
+    width: 24px; /* 控制圖片大小 */
+    height: 24px;
+}
+
+/* 響應式設計 */
+@media (max-width: 576px) {
+    #statusContainer {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 15px; /* 增加間距 */
+    }
+
+    .status-item {
+        width: calc(50% - 10px); /* 每行顯示兩個項目 */
+        text-align: left;
+    }
+}
+
+/* 動態顯示前往各班統計表按鈕樣式 */
+/* 按鈕樣式 */
+.btn-gradient-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3); /* 漸變背景 */
+    border: none;
+    color: white; /* 按鈕文字顏色 */
+    border-radius: 10px; /* 圓角 */
+    padding: 12px 24px; /* 增加內邊距，讓按鈕更易點擊 */
+    font-size: 1rem;
+    text-decoration: none; /* 去掉下劃線 */
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle; /* 垂直置中 */
+    transition: all 0.3s ease-in-out;
+    line-height: 1.5; /* 調整按鈕內文字的行高 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
+}
+
+/* 懸停效果 */
+.btn-gradient-primary:hover {
+    background: linear-gradient(135deg, #0056b3, #004494); /* 懸停時的顏色 */
+    transform: scale(1.05); /* 放大效果 */
+    color: white; /* 保持文字白色 */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* 增加文字陰影讓其更明顯 */
+}
+

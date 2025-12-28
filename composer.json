@@ -1,0 +1,19 @@
+{
+  "name": "jinghong/admin-system",
+  "description": "Fake composer.json for IDE autoload only",
+  "type": "project",
+  "license": "proprietary",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "PhpOffice\\PhpSpreadsheet\\": "vendor/src/PhpSpreadsheet/",
+      "Psr\\SimpleCache\\": "vendor/Psr/SimpleCache/",
+      "ZipStream\\": "vendor/ZipStream/"
+    }
+  },
+  "config": {
+    "platform": {
+      "php": "8.2"
+    }
+  }
+}

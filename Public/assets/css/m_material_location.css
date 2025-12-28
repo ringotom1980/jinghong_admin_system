@@ -1,0 +1,121 @@
+/*-----B班表格文字垂直置中-----*/
+/* 表格欄位內容垂直置中 */
+.table td, .table th {
+    vertical-align: middle; /* 垂直置中 */
+}
+
+/* 表格文字對齊方式 */
+.table td {
+    text-align: center; /* 文字置中 */
+}
+
+/* 表單控件的樣式優化 */
+.form-control.material-location {
+    text-align: center; /* 輸入框文字置中 */
+    margin: 0 auto; /* 垂直置中時保持輸入框位置 */
+}
+
+/* 按鈕樣式優化 */
+.btn.update-btn {
+    padding: 5px 10px; /* 調整按鈕內邊距 */
+}
+
+/*-----隱藏欄位-----*/
+.hidden {
+    display: none;
+}
+
+
+/*------B班左下角固定ICON------*/ 
+.fixed-icon {
+    position: fixed; /* 固定位置 */
+    bottom: 20px;    /* 距離螢幕底部 20px */
+    left: 20px;      /* 距離螢幕左側 20px */
+    z-index: 1000;   /* 確保圖標位於其他元素之上 */
+}
+
+.fixed-icon .icon-image {
+    width: 50px;     /* 設置圖標寬度 */
+    height: 50px;    /* 設置圖標高度 */
+    cursor: pointer; /* 滑鼠移動到圖標上時顯示指針 */
+}
+
+/* 懸停顯示的圖片 */
+.fixed-icon .hover-image {
+    display: none; /* 默認隱藏 */
+    position: absolute;
+    bottom: 100%; /* 使圖片的下邊對齊 ICON 的上邊 */
+    left: 100%;   /* 使圖片的左邊對齊 ICON 的右邊 */
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.9); /* 背景色 */
+    border: 1px solid #ddd;
+    padding: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 滑鼠懸停時顯示圖片 */
+.fixed-icon:hover .hover-image {
+    display: block;
+}
+
+/* 懸停圖片的樣式 */
+.fixed-icon .hover-image img {
+    width: 150px; /* 預設寬度 */
+    height: auto; /* 等比例縮放 */
+    border-radius: 5px; /* 可選的圓角效果 */
+}
+
+/* 響應式設計 */
+/* 手機（螢幕寬度小於 768px） */
+@media (max-width: 768px) {
+    .fixed-icon .hover-image img {
+        width: 300px; /* 小螢幕縮小圖片 */
+    }
+}
+
+/* 平板（螢幕寬度在 768px 至 1024px） */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .fixed-icon .hover-image img {
+        width: 500px; /* 中螢幕圖片大小 */
+    }
+}
+
+/* 桌面（螢幕寬度大於 1024px） */
+@media (min-width: 1024px) {
+    .fixed-icon .hover-image img {
+        width: 700px; /* 預設圖片大小 */
+    }
+}
+
+/* -----回到頂部的基本樣式----- */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    z-index: 1000;
+}
+
+/* 顯示 ICON 時的樣式 */
+.back-to-top.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ICON 懸停效果 */
+.back-to-top:hover {
+    background-color: #0056b3;
+}
+

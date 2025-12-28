@@ -1,0 +1,33 @@
+/* Public/assets/css/equ_repair.css */
+
+/* 手機：縮小右表字體（若列表很長） */
+@media (max-width: 576px) {
+  .table-font-size {
+    font-size: 58%;
+  }
+}
+
+/* 內容過長省略（title 顯示完整） */
+.table .cell-ellipsis {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 項目列間距 */
+.item-row .form-control {
+  min-height: 2.25rem;
+}
+
+/* Modal 內的項目列讓欄位靠齊 */
+.item-row .col-6, .item-row .col-2, .item-row .col-3, .item-row .col-1 {
+  display: flex;
+  align-items: center;
+}
+
+/* 允許自動換行 */
+.wrap-text {
+  white-space: normal !important;
+  word-break: break-word; /* 中文長字串也能斷行 */
+}

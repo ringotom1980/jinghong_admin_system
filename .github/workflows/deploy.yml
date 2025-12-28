@@ -1,0 +1,50 @@
+name: Deploy to FTP
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 避免把敏感檔案帶上（即使 .gitignore 沒上版控，仍加一道保險）
+      - name: Remove sensitive files (safety)
+        run: |
+          rm -f .env
+          rm -f config/.env.php
+          rm -f config/db_connection.php
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          port: 21
+
+          # 重要：請把 FTP_TARGET_DIR 設成「最終要落地的資料夾」
+          # 例：/domains/你的網域/public_html/JINGHONG_ADMIN_SYSTEM/
+          server-dir: ${{ secrets.FTP_TARGET_DIR }}
+
+          local-dir: ./
+
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/.vscode/**
+            **/node_modules/**
+            **/.DS_Store
+            **/Thumbs.db
+            **/*.log
+            **/storage/tmp/**
+            **/logs/**
+            **/config/.env.php
+            **/config/db_connection.php
+            **/.env
+            **/TCPDF/**

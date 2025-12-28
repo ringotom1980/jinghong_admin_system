@@ -1,0 +1,41 @@
+/* Public/assets/css/equ_statistics.css */
+
+/* 手機：適度縮小右表字體 */
+@media (max-width: 576px){
+  .table-font-size { font-size: 60%; }
+}
+
+/* 回頂端按鈕（右下角，半透明、滑入強調） */
+#btnBackToTop{
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1080;
+  display: none;                 /* 預設隱藏 */
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+  opacity: .6;                   /* 半透明 */
+  transition: opacity .2s ease, transform .15s ease;
+}
+#btnBackToTop:hover{
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* 左右兩表表頭：黏在頂端並避開 .jh-header 高度 */
+#statisticsTable thead,
+#repairTable thead{
+  position: sticky;
+  top: var(--jh-header-h, 0px); /* 由 header-nav.js 寫入實際高度 */
+  background: #fff;
+  z-index: 1000;                /* 低於 .jh-header 的 1040 */
+  box-shadow: 0 1px 0 rgba(0,0,0,.06);
+}
+
+/* 可選：避免 thead 下方首列黏住時覺得擁擠 */
+#statisticsTable thead th,
+#repairTable thead th{
+  background: #fff;
+}
